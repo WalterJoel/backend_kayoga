@@ -12,7 +12,7 @@ const router = Router();
 });*/
 
 
-router.get('/getSeriados',getSeriados)
+router.get('/Seriados',getSeriados)
 router.post('/postSeriados',createSeriados) 
 
 
