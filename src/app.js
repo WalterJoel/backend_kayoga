@@ -1,6 +1,7 @@
 //Se crea este archivo para no tener todo en index.js
 import express from 'express';
 import {PORT} from './config.js'
+import cors from 'cors';
 //Para usar la ruta de los lotes
 import lotesRoutes from './routes/lotes.routes.js';
 import indexRoutes from './routes/index.routes.js';
@@ -13,13 +14,17 @@ app.use(express.json());
 app.use(lotesRoutes);
 app.use(indexRoutes);
 app.use(seriadosRoutes);
+
+app.use(cors()); 
 // Enable CORS
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
+/*const corsOptions = {
+    origin: true,
+    credentials: true
+  }
+  app.options('*', cors(corsOptions)); // preflight OPTIONS; put before other routes
+  /*app.listen(3000, function(){
+    console.log('CORS-enabled web server listening on port 80');
+  });*/
 
 //Exporto para llamar desde index.js
 export default app;
