@@ -6,8 +6,8 @@ const router = Router();
 router.get('/bd', async(req, res) => { 
     const result = await pool.query("SELECT * FROM usuarios")
     res.json(result);
+    //res.send('hoolll')
         //if (err) throw err;
-        //console.log(result);
         //res.send(result);
 }); 
 

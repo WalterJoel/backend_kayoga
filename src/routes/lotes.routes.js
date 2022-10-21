@@ -10,6 +10,8 @@ const router = Router();
     router.get('/usuarios',(req, res) => {
     res.send('mostrando Usuarios')
 });*/
+
+
 router.get('/usuarios',getLotes) 
 
 
