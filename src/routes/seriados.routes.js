@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import{getSeriados, createSeriados} from '../controllers/seriados.controller.js';
+import{Seriados, createSeriados} from '../controllers/seriados.controller.js';
 
 
 const router = Router();
@@ -12,7 +12,8 @@ const router = Router();
 });*/
 
 
-router.get('/Seriados',getSeriados)
+router.get('/Seriados',Seriados)
+
 router.post('/postSeriados',createSeriados) 
 
 
