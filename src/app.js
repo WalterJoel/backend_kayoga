@@ -6,6 +6,8 @@ import cors from 'cors';
 import lotesRoutes from './routes/lotes.routes.js';
 import indexRoutes from './routes/index.routes.js';
 import seriadosRoutes from './routes/seriados.routes.js'
+import aparadoresRoutes from './routes/aparadores.routes.js';
+
 const app = express();
 
 // Para poder recibir json desde el body de la peticion
@@ -34,6 +36,7 @@ app.use(function (req, res, next) {
 app.use(lotesRoutes);
 app.use(indexRoutes);
 app.use(seriadosRoutes);
+app.use(aparadoresRoutes);
 
 //app.set('Access-Control-Allow-Origin', '*');
 
@@ -49,3 +52,9 @@ export default app;
 - Al enviar desde React JSON debemos poner content type en el axios o fetch sino no reconoce y no inserta
 - 
 */ 
+
+/*
+para conectarse a heroku 
+- heroku git:remote -a kayoga
+- heroku logs --tail
+*/
