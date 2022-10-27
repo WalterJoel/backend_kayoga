@@ -15,7 +15,7 @@ const router = Router();
 
 router.get('/getLotesCortados',getLotesCortado) 
 router.get('/getLoteById/:id',getLoteById) 
-router.get('/updateLoteById/:id',updateLoteById) 
+router.put('/updateLoteById/:id',updateLoteById) 
 
 //Cuando exporto defaultm luego lo puedo llamar con el nombre que quiera
 export default router;

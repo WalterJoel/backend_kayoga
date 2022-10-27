@@ -3,10 +3,12 @@ import express from 'express';
 import {PORT} from './config.js'
 import cors from 'cors';
 //Para usar la ruta de los lotes
+//Uso cualquier nombre porque exportan by default
 import lotesRoutes from './routes/lotes.routes.js';
 import indexRoutes from './routes/index.routes.js';
 import seriadosRoutes from './routes/seriados.routes.js'
 import aparadoresRoutes from './routes/aparadores.routes.js';
+import modelosRoutes from './routes/modelos.routes.js'
 
 const app = express();
 
@@ -37,6 +39,7 @@ app.use(lotesRoutes);
 app.use(indexRoutes);
 app.use(seriadosRoutes);
 app.use(aparadoresRoutes);
+app.use(modelosRoutes);
 
 //app.set('Access-Control-Allow-Origin', '*');
 

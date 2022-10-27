@@ -20,17 +20,16 @@ export const updateLoteById = async (req, res) => {
     try {
         console.log(req.params.id);
         const idlote=req.params.id;
+        const {idaparador,idmodelo}=req.body;
         
-        
-        // const [rows]= await pool.query(`UPDATE lotes
-        //                                 SET serie = 'Alfred Schmidt', City= 'Frankfurt'
-        //                                 WHERE CustomerID = 1;
-        //                                 WHERE lotes.idlote=${idlote} ` );
+        const [rows]= await pool.query(`UPDATE lotes
+                                        SET idaparador=${idaparador}, idmodelo=${idmodelo}
+                                        WHERE lotes.idlote=${idlote} ` );
         res.json(rows);
         
     } catch (error) {
         return res.status(500).json({
-            message:'Algo anda mal'
+            message:'Algo anda mal en updatelotebyid'
         })
     }
 };
