@@ -20,10 +20,12 @@ export const updateLoteById = async (req, res) => {
     try {
         console.log(req.params.id);
         const idlote=req.params.id;
-        const {idaparador,idmodelo}=req.body;
+        const {idaparador,idmodelo,detalle_insumos_aparado,estado}=req.body;
         
         const [rows]= await pool.query(`UPDATE lotes
                                         SET idaparador=${idaparador}, idmodelo=${idmodelo}
+                                        , detalle_insumos_aparado='${detalle_insumos_aparado.toString()}'
+                                        , estado='${estado.toString()}'
                                         WHERE lotes.idlote=${idlote} ` );
         res.json(rows);
         
