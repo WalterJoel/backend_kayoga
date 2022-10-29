@@ -2,7 +2,9 @@ import {pool} from '../db.js'
 
 export const getAllModelos = async (req, res) => {
     try {
-        const [rows]= await pool.query(`SELECT * FROM modelos`);
+        const [rows]= await pool.query(`SELECT * FROM modelos
+                                        INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
+                                        INNER JOIN insertos ON modelos.idinserto = insertos.idinserto`);
         res.json(rows);
 
     } catch (error) {

@@ -6,7 +6,7 @@ config();
 console.log(process.env.PORT);
 
 // con proces.env.port le digo que use la variable de entorno del archivo.env o sino ||
-export const PORT      = process.env.PORT ||  '3000';
+export const PORT      = process.env.PORT ||  '4000';
 export const DB_PORT      = process.env.DB_PORT ||    '7621';
 export const DB_USER      = process.env.DB_USER || 'root';
 export const DB_PASSWORD  = process.env.DB_PASSWORD || 'IRhxeHJNJ72J88fjO8bY';
