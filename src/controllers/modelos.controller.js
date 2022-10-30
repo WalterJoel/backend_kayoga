@@ -20,7 +20,7 @@ export const getAllModelosBySerieAndColor= async (req, res) => {
         let serie = (req.params.serie);
         serie = serie.toString();
         //Concateno los valores de tipo modelo, color, etc para mi busqueda en el front
-        const [rows]= await pool.query(`SELECT idmodelo, CONCAT(nombre_modelo,' ', serie_modelo,' ',tipo_modelo,' ',color_modelo) AS valor_concatenado
+        const [rows]= await pool.query(`SELECT idmodelo, CONCAT(nombre_modelo,' ', serie_modelo,' ',tipo_modelo,' ',pasador_mocasin,' ',color_modelo) AS valor_concatenado
                                         FROM modelos
                                         INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
                                         INNER JOIN insertos ON modelos.idinserto = insertos.idinserto
