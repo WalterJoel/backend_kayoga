@@ -12,6 +12,10 @@ import modelosRoutes from './routes/modelos.routes.js';
 import seriadoRestanteRoutes from './routes/seriadoRestante.routes.js';
 import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes.js';
 
+
+let fecha_creacion = new Date();
+        fecha_creacion=fecha_creacion.toLocaleString('EDT');
+        console.log('FECHA',fecha_creacion);
 const app = express();
 
 // Para poder recibir json desde el body de la peticion
