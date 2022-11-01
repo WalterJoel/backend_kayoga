@@ -20,7 +20,8 @@ export const Seriados = async(req, res) => {
 export const createSeriados = async (req,res)=>{
     try {
         const {talla1,talla2,talla3,talla4,talla5,metraje,color,descripcion,garibaldi,contrafuerte,etiquetas,estado,serie} = req.body;
-        const fecha_creacion = new Date();
+        let fecha_creacion = new Date();
+        fecha_creacion=fecha_creacion.toLocaleString();
         console.log(req.body);
         //Primero inserto en la tabla seriados
         const [seriado]= await pool.query('INSERT INTO seriados(talla1,talla2,talla3,talla4,talla5) VALUES (?, ?, ?, ?, ?)',[talla1,talla2,talla3,talla4,talla5])
