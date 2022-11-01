@@ -13,9 +13,6 @@ import seriadoRestanteRoutes from './routes/seriadoRestante.routes.js';
 import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes.js';
 
 
-let fecha_creacion = new Date();
-        fecha_creacion=fecha_creacion.toLocaleString('PET',{timeZone:'America/Lima'});
-        console.log('FECHA',fecha_creacion);
 const app = express();
 
 // Para poder recibir json desde el body de la peticion
