@@ -8,7 +8,9 @@ import lotesRoutes from './routes/lotes.routes.js';
 import indexRoutes from './routes/index.routes.js';
 import seriadosRoutes from './routes/seriados.routes.js'
 import aparadoresRoutes from './routes/aparadores.routes.js';
-import modelosRoutes from './routes/modelos.routes.js'
+import modelosRoutes from './routes/modelos.routes.js';
+import seriadoRestanteRoutes from './routes/seriadoRestante.routes.js';
+import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes.js';
 
 const app = express();
 
@@ -40,6 +42,7 @@ app.use(indexRoutes);
 app.use(seriadosRoutes);
 app.use(aparadoresRoutes);
 app.use(modelosRoutes);
+app.use(seriadoRestanteRoutes);
 
 //app.set('Access-Control-Allow-Origin', '*');
 

@@ -20,6 +20,7 @@ export const Seriados = async(req, res) => {
 export const createSeriados = async (req,res)=>{
     try {
         const {talla1,talla2,talla3,talla4,talla5,metraje,color,descripcion,garibaldi,contrafuerte,etiquetas,estado,serie} = req.body;
+        const fecha_creacion = new Date();
         console.log(req.body);
         //Primero inserto en la tabla seriados
         const [seriado]= await pool.query('INSERT INTO seriados(talla1,talla2,talla3,talla4,talla5) VALUES (?, ?, ?, ?, ?)',[talla1,talla2,talla3,talla4,talla5])
@@ -37,11 +38,11 @@ export const createSeriados = async (req,res)=>{
             console.log('id_seriadorestante',id_seriadorestante_insertado);
             try {
                 const [lote_insertado]= await pool.query(`INSERT INTO 
-                                                            lotes(metraje,color,descripcion,garibaldi,
+                                                            lotes(metraje,color,fecha_creacion,descripcion,garibaldi,
                                                             contrafuerte,etiquetas,estado,idseriado,
                                                             idseriadorestante,serie) 
-                                                            VALUES (?, ?, ?, ?,?, ?, ?, ?,?,?)`,
-                                                            [metraje,color,descripcion,garibaldi,contrafuerte,etiquetas,estado,id_seriado_insertado,id_seriadorestante_insertado,serie])
+                                                            VALUES (?, ?, ?, ?,?, ?, ?, ?,?,?,?)`,
+                                                            [metraje,color,fecha_creacion,descripcion,garibaldi,contrafuerte,etiquetas,estado,id_seriado_insertado,id_seriadorestante_insertado,serie])
                 //*********** Muy importante que en POST el servidor responda para poder redireccionar u otra accion */
                 const result = await res.json(lote_insertado);          
             

@@ -20,11 +20,12 @@ export const getLotesByIdAparadorAndEstado = async(req,res) =>{
         const {idAparador,estadoLotes}=req.params
         console.log('ss',idAparador,estadoLotes);
         //Hay que tener cuidado en los inner join por el tema de los ids
-        const [rows]= await pool.query(`SELECT lotes.idaparador, lotes.idlote,lotes.serie as serieLote, CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
+        const [rows]= await pool.query(`SELECT lotes.idaparador, seriados.talla1,lotes.idlote,lotes.serie as serieLote, CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
                                         AS infomodelo FROM lotes
                                         INNER JOIN aparadores ON lotes.idaparador = aparadores.idaparador
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
+                                        INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
                                         WHERE lotes.estado = '${estadoLotes.toString()}' 
                                         AND lotes.idaparador=${idAparador}`);
 
