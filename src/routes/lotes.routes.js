@@ -1,8 +1,7 @@
 import { Router } from "express";
 
 import{getLotesCortado} from '../controllers/lotes.controller.js';
-import{getLoteById,updateLoteById} from '../controllers/lotes.controller.js';
-
+import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado} from '../controllers/lotes.controller.js';
 
 const router = Router();
 
@@ -16,6 +15,7 @@ const router = Router();
 router.get('/getLotesCortados',getLotesCortado) 
 router.get('/getLoteById/:id',getLoteById) 
 router.put('/updateLoteById/:id',updateLoteById) 
+router.get('/getLotesByIdAparadorAndEstado/:idAparador/:estadoLotes',getLotesByIdAparadorAndEstado);
 
 //Cuando exporto defaultm luego lo puedo llamar con el nombre que quiera
 export default router;
