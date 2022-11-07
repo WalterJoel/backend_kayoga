@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-//import{} from '../controllers/seriados.controller.js';
+import{updateWatchAparado} from '../controllers/watchProduccionAparado.controller.js';
 
 
 const router = Router();
@@ -11,7 +11,7 @@ const router = Router();
     res.send('mostrando Usuarios')
 });*/
 
-//router.post('/createWatchProduccionAparado',createWatchProduccionAparado);
+router.put('/updateWatchAparado',updateWatchAparado);
 
 
 //Cuando exporto defaultm luego lo puedo llamar con el nombre que quiera

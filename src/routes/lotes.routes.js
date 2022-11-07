@@ -1,8 +1,9 @@
 import { Router } from "express";
 
-import{getLotesCortado} from '../controllers/lotes.controller.js';
+import{getLotesCortado,getLotesByEstado,getLotesByEstadoWithoutModels,getLotesPorContar, getLotesPorSeparar} from '../controllers/lotes.controller.js';
 import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado} from '../controllers/lotes.controller.js';
-
+import {checkAuth} from '../middlewares/auth.middleware.js'
+//import {checkRoleAuth} from '../middlewares/roleAuth.middleware.js'
 const router = Router();
 
 /*
@@ -11,11 +12,18 @@ const router = Router();
     res.send('mostrando Usuarios')
 });*/
 
-
+/*
+    checkAuth: Verifica que el usuario tenga un token activo y generado por el sistema no por otro
+    checkRoleAuth: Verifica el rol del usuario
+*/
 router.get('/getLotesCortados',getLotesCortado) 
 router.get('/getLoteById/:id',getLoteById) 
 router.put('/updateLoteById/:id',updateLoteById) 
 router.get('/getLotesByIdAparadorAndEstado/:idAparador/:estadoLotes',getLotesByIdAparadorAndEstado);
+router.get('/getLotesByEstado/:estadoLotes',getLotesByEstado);
+router.get('/getLotesByEstadoWithoutModels/:estadoLotes',getLotesByEstadoWithoutModels);
+router.get('/getLotesPorContar',getLotesPorContar);
+router.get('/getLotesPorSeparar',getLotesPorSeparar);
 
 //Cuando exporto defaultm luego lo puedo llamar con el nombre que quiera
 export default router;

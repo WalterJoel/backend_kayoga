@@ -11,8 +11,8 @@ import aparadoresRoutes from './routes/aparadores.routes.js';
 import modelosRoutes from './routes/modelos.routes.js';
 import seriadoRestanteRoutes from './routes/seriadoRestante.routes.js';
 import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes.js';
-
-
+import authRoutes from './routes/auth.routes.js';
+import insertosRoutes from './routes/insertos.routes.js';
 const app = express();
 
 // Para poder recibir json desde el body de la peticion
@@ -23,17 +23,13 @@ app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
-
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-
     // Pass to next layer of middleware
     next();
 });
@@ -44,7 +40,9 @@ app.use(seriadosRoutes);
 app.use(aparadoresRoutes);
 app.use(modelosRoutes);
 app.use(seriadoRestanteRoutes);
-
+app.use(authRoutes);
+app.use(insertosRoutes);
+app.use(watchProduccionAparadoRoutes);
 //app.set('Access-Control-Allow-Origin', '*');
 
 
