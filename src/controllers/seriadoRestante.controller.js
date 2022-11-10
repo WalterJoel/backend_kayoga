@@ -79,3 +79,25 @@ export const updateSeriadoRestanteAlSeparar = async (req, res) => {
             message:'Algo anda mal al insertar en la tabla watch y seriado restante'})    
     }
 };
+
+/* Esta funcion 
+*/ 
+
+export const get = async (req, res) => {
+       
+    try {
+        const {talla2,talla21,talla3,talla31,talla4,talla41,talla5,talla51,
+                idseriadorestante}=req.body;
+        const estado_seriado = 'Separado';
+        const [tabla_seriado_restante]= await pool.query(`UPDATE
+                   seriado_restante SET  talla2=${talla2}, talla21=${talla21},talla3=${talla3},
+                                         talla31=${talla31}, talla4=${talla4},talla41=${talla41},
+                                         talla5=${talla5},talla51=${talla51}, estado_seriado='${estado_seriado}'
+                    WHERE seriado_restante.idseriadorestante=${idseriadorestante}`);
+        res.json(tabla_seriado_restante);
+    } catch (error) {
+          return res.status(500).json({
+            message:'Algo anda mal al insertar en la tabla watch y seriado restante'})    
+    }
+};
+

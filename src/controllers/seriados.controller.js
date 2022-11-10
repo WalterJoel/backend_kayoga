@@ -16,7 +16,10 @@ export const Seriados = async(req, res) => {
 
 };
 
-//Gabito tiene que mejorar este codigo Dios usando async await sin try catch
+/* Esta funcion
+    1.- Inserta en la tabla seriados
+    2.- Inserta en la tabla lotes con estado 'Cortado'
+*/
 export const createSeriados = async (req,res)=>{
     try {
         const {talla1,talla2,talla3,talla4,talla5,metraje,color,descripcion,garibaldi,contrafuerte,etiquetas,estado,serie} = req.body;

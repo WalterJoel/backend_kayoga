@@ -1,8 +1,7 @@
 //Se crea este archivo para no tener todo en index.js
 import express from 'express';
-import {PORT} from './config.js'
-import cors from 'cors';
-//Para usar la ruta de los lotes
+
+
 //Uso cualquier nombre porque exportan by default
 import lotesRoutes from './routes/lotes.routes.js';
 import indexRoutes from './routes/index.routes.js';
@@ -33,6 +32,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+app.set('Access-Control-Allow-Origin', '*');
 
 app.use(lotesRoutes);
 app.use(indexRoutes);
@@ -43,7 +43,6 @@ app.use(seriadoRestanteRoutes);
 app.use(authRoutes);
 app.use(insertosRoutes);
 app.use(watchProduccionAparadoRoutes);
-//app.set('Access-Control-Allow-Origin', '*');
 
 
 //Exporto para llamar desde index.js

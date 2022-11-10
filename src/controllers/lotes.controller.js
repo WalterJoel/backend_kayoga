@@ -46,7 +46,10 @@ export const getLotesByEstado = async(req,res) =>{
     try {
         const {estadoLotes}=req.params
         //Hay que tener cuidado en los inner join por el tema de los ids
-        const [rows]= await pool.query(`SELECT lotes.idaparador, seriados.talla1,lotes.idlote,lotes.serie as serieLote, CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
+        const [rows]= await pool.query(`SELECT lotes.metraje,lotes.idaparador, lotes.fecha_creacion as fechaCorte, lotes.color as color_lona,lotes.fecha_creacion,lotes.garibaldi,lotes.contrafuerte,
+                                        seriados.talla1,lotes.idlote,lotes.serie as serieLote,
+                                        lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
+                                        CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
                                         AS infomodelo, CONCAT(seriados.talla1+seriados.talla2+seriados.talla3+seriados.talla4+seriados.talla5)
                                         AS total_pares_seriado_inicial
@@ -70,7 +73,10 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
     try {
         const {estadoLotes}=req.params
         //Hay que tener cuidado en los inner join por el tema de los ids
-        const [rows]= await pool.query(`SELECT lotes.idaparador, seriados.talla1,lotes.idlote,lotes.serie as serieLote,
+        const [rows]= await pool.query(`SELECT lotes.metraje,lotes.idaparador, lotes.fecha_creacion as fechaCorte,
+                                        lotes.color as color_lona,lotes.fecha_creacion,lotes.garibaldi,lotes.contrafuerte,
+                                        seriados.talla1,lotes.idlote,lotes.serie as serieLote,
+                                        lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
                                         CONCAT(seriados.talla1+seriados.talla2+seriados.talla3+seriados.talla4+seriados.talla5)
                                         AS total_pares_seriado_inicial
                                         FROM lotes
