@@ -39,7 +39,9 @@ export const getAllModelosBySerieAndColor= async (req, res) => {
     2.1 : idmodelo, idzapatilla, talla1 hasta talla51, valor concatenado(datos modelo)
     en el front ya se procesa
 3.- El idzapatilla es usado luego para actualizar el stock
-    */ 
+Probando funcion    
+*/ 
+
 export const getZapatillasBySerie=async(req,res)=>{
     try {
         let serie  = (req.params.serie);
