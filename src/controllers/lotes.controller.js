@@ -52,6 +52,8 @@ export const getLotesByEstado = async(req,res) =>{
                                         watch_produccion_aparado.fecha_conteo,
                                         watch_produccion_aparado.total_pares_segun_aparador,
                                         watch_produccion_aparado.total_pares_segun_contador,
+                                        watch_produccion_aparado.descripcion_contador,
+                                        seriado_restante.descripcion_aparador,
                                         lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
@@ -60,6 +62,7 @@ export const getLotesByEstado = async(req,res) =>{
                                         FROM lotes
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
+                                        INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
                                         INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
                                         WHERE lotes.estado = '${estadoLotes.toString()}' 
                                     `);
