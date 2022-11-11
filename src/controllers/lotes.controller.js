@@ -50,6 +50,8 @@ export const getLotesByEstado = async(req,res) =>{
                                         seriados.talla1,lotes.idlote,lotes.serie as serieLote,
                                         watch_produccion_aparado.fecha_creacion as fechaEntregaAparado,
                                         watch_produccion_aparado.fecha_conteo,
+                                        watch_produccion_aparado.total_pares_segun_aparador,
+                                        watch_produccion_aparado.total_pares_segun_contador,
                                         lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
