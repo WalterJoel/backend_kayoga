@@ -48,6 +48,8 @@ export const getLotesByEstado = async(req,res) =>{
         //Hay que tener cuidado en los inner join por el tema de los ids
         const [rows]= await pool.query(`SELECT lotes.metraje,lotes.idaparador, lotes.fecha_creacion as fechaCorte, lotes.color as color_lona,lotes.fecha_creacion,lotes.garibaldi,lotes.contrafuerte,
                                         seriados.talla1,lotes.idlote,lotes.serie as serieLote,
+                                        watch_produccion_aparado.fecha_creacion as fechaEntregaAparado,
+                                        watch_produccion_aparado.fecha_conteo,
                                         lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
@@ -56,6 +58,7 @@ export const getLotesByEstado = async(req,res) =>{
                                         FROM lotes
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
+                                        INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
                                         WHERE lotes.estado = '${estadoLotes.toString()}' 
                                     `);
 
