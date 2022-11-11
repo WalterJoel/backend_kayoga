@@ -178,7 +178,10 @@ export const getLotesPorSeparar = async (req, res) => {
         const seriado_restante_estado         = 'Por Separar';
 //        INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo                                        
 
-        const [rows]= await pool.query(`SELECT lotes.idlote,watch_produccion_aparado.total_pares_segun_aparador as conteoAparador ,lotes.idseriadorestante,seriados.talla1,lotes.serie as serieLote,
+        const [rows]= await pool.query(`SELECT lotes.idlote,
+                    watch_produccion_aparado.total_pares_segun_aparador ,
+                    watch_produccion_aparado.total_pares_segun_contador ,
+                    lotes.idseriadorestante,seriados.talla1,lotes.serie as serieLote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) AS infomodelo
                                         FROM lotes
