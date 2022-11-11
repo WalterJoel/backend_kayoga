@@ -17,7 +17,7 @@ export const getInsertosBySerie = async (req, res) => {
         
     }
 };
-
+/*Funcion para actualizar todos los Insertos*/ 
 export const updateAllInsertos = (req, res) => {
     try {
         const allInsertos = req.body;

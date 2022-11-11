@@ -18,7 +18,7 @@ export const getLotesCortado = async (req, res) => {
 export const getLotesByIdAparadorAndEstado = async(req,res) =>{
     try {
         const {idAparador,estadoLotes}=req.params
-        console.log('ss',idAparador,estadoLotes);
+        //console.log('ss',idAparador,estadoLotes);
         //Hay que tener cuidado en los inner join por el tema de los ids
         const [rows]= await pool.query(`SELECT lotes.idaparador, seriados.talla1,lotes.idlote,lotes.serie as serieLote, CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo) 
@@ -103,7 +103,6 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
 
 export const updateLoteById = async (req, res) => {
     try {
-        console.log(req.params.id);
         const idLote=req.params.id;
         const {idaparador,idmodelo,detalle_insumos_aparado,estado}=req.body;
         
@@ -122,7 +121,6 @@ export const updateLoteById = async (req, res) => {
 };
 export const getLoteById = async (req, res) => {
     try {
-        console.log(req.params.id);
         const idlote=req.params.id;
 //        INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo                                        
 
