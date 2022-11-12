@@ -57,11 +57,12 @@ export const getLotesByEstado = async(req,res) =>{
                                         seriado_restante.descripcion_aparador,
                                         lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
-                                        ' ',modelos.tipo_modelo) 
+                                        ' ',modelos.tipo_modelo, ' ',color_modelos.color_modelo) 
                                         AS infomodelo, CONCAT(seriados.talla1+seriados.talla2+seriados.talla3+seriados.talla4+seriados.talla5)
                                         AS total_pares_seriado_inicial
                                         FROM lotes
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
+                                        INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
                                         LEFT JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
                                         LEFT JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
