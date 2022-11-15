@@ -39,7 +39,7 @@ export const updateAllInsertos = (req, res) => {
         
     } catch (error) {
         return res.status(500).json({
-            message:error
+            message:'Algo anda mal'
         })
         
     }
