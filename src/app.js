@@ -12,6 +12,7 @@ import seriadoRestanteRoutes from './routes/seriadoRestante.routes.js';
 import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import insertosRoutes from './routes/insertos.routes.js';
+import watchProduccionInyectadoRoutes from './routes/watchProduccionInyeccion.routes.js'
 const app = express();
 
 // Para poder recibir json desde el body de la peticion
@@ -43,7 +44,7 @@ app.use(seriadoRestanteRoutes);
 app.use(authRoutes);
 app.use(insertosRoutes);
 app.use(watchProduccionAparadoRoutes);
-
+app.use(watchProduccionInyectadoRoutes);
 
 //Exporto para llamar desde index.js
 export default app;

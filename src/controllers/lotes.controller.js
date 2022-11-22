@@ -42,7 +42,9 @@ export const getLotesByIdAparadorAndEstado = async(req,res) =>{
 };
 
 
-//Funcion que retorna la lista de lotes por Estado y por ID Aparador
+//Funcion que retorna la lista de lotes por Estado y por ID Aparador, 
+/* Esta funcion utiliza left join porque cuando su estado del lote es aparado, aun no tiene 
+registro en la tabla watch produccion aparado ni tampoco un seriado restante */
 export const getLotesByEstado = async(req,res) =>{
     try {
         const {estadoLotes}=req.params

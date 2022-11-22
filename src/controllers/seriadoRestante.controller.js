@@ -101,3 +101,49 @@ export const get = async (req, res) => {
     }
 };
 
+/* Funcion que recibe 3 parametros
+    1.- molde (vans, star, giana)
+    2.- seria(nino, adulto, dama)
+    3.- Una talla en especifica
+
+    - Funcion que devuelve el seriado restante e los distintos modelos del molde seleccionado y la 
+    talla seleccionada.
+    - Funcion que se emplea en la VISTA ORDEN_INYECCION_PAGE
+
+   4.- Finalmente en la query me aseguro que el lote:
+        - Haya sido CONTADO
+        - Haya sido Separado
+        - Y obviamente RESUELTO que es cuando el aparador entrega o devuelve
+*/
+export const getSeriadoRestanteByTalla = async(req,res) =>{
+    try {
+        const {molde, serie, talla}=req.params;
+        console.log(molde,' ', serie, ' ',talla)
+        const [seriado_restante_by_talla] = await pool.query(`SELECT  
+            seriado_restante.${talla},
+            seriado_restante.${talla} AS cantidad, 
+            lotes.idlote,
+            seriado_restante.idseriadorestante,
+            CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
+            ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo 
+            FROM lotes
+            INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
+            INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
+            INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
+            INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
+            WHERE lotes.estado = 'Resuelto'
+            AND watch_produccion_aparado.estado='Contado'
+            AND seriado_restante.estado_seriado = 'Separado'
+            AND modelos.nombre_modelo = '${molde}'
+            AND modelos.serie_modelo = '${serie}' 
+            AND seriado_restante.${talla} > 0 `);
+
+        res.json(seriado_restante_by_talla);
+    } catch (error) {
+          return res.status(500).json({
+            message:'Algo anda mal al insertar en la tabla watch y seriado restante: ',error})    
+    }
+
+}
+
+ 
