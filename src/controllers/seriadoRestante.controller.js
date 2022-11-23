@@ -115,6 +115,9 @@ export const get = async (req, res) => {
         - Haya sido Separado
         - Y obviamente RESUELTO que es cuando el aparador entrega o devuelve
 */
+
+/* OJO ESTA FUNCION SE COMUNICA CON TRANSFER LIST DEL FRONT Y NO SE DEBE MODIFICAR
+LA POSICION EN QUE LA QUERY RETORNA LA TALLA, ES DECIR EL PRIMER ITEM */
 export const getSeriadoRestanteByTalla = async(req,res) =>{
     try {
         const {molde, serie, talla}=req.params;
@@ -123,6 +126,9 @@ export const getSeriadoRestanteByTalla = async(req,res) =>{
             seriado_restante.${talla},
             seriado_restante.${talla} AS cantidad, 
             lotes.idlote,
+            insertos.idinserto,
+            insertos.color_inserto,
+            modelos.idmodelo,
             seriado_restante.idseriadorestante,
             CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
             ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo 
@@ -130,6 +136,7 @@ export const getSeriadoRestanteByTalla = async(req,res) =>{
             INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
             INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
             INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
+            INNER JOIN insertos ON modelos.idinserto = insertos.idinserto
             INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
             WHERE lotes.estado = 'Resuelto'
             AND watch_produccion_aparado.estado='Contado'
