@@ -195,10 +195,11 @@ export const getLotesPorSeparar = async (req, res) => {
                     seriado_restante.talla51,
                     lotes.idseriadorestante,seriados.talla1,lotes.serie as serieLote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
-                                        ' ',modelos.tipo_modelo) AS infomodelo
+                                        ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo
                                         FROM lotes
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
+                                        INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
                                         INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
                                         INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
                                         WHERE watch_produccion_aparado.estado = '${watch_produccion_aparado_estado}'
