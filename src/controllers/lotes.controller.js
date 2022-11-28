@@ -61,6 +61,8 @@ export const getLotesByEstado = async(req,res) =>{
                                         seriados.talla4 as talla4Seriado,
                                         seriados.talla5 as talla5Seriado,
 
+                                        aparadores.sobrenombre as nombreAparador,
+                                        
                                         seriado_restante.talla1 as talla1SeriadoRes,
                                         seriado_restante.talla2 as talla2SeriadoRes,
                                         seriado_restante.talla21 as talla21SeriadoRes,
@@ -89,6 +91,7 @@ export const getLotesByEstado = async(req,res) =>{
                                         FROM lotes
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
                                         INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
+                                        INNER JOIN aparadores ON lotes.idaparador = aparadores.idaparador
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
                                         LEFT JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
                                         LEFT JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
