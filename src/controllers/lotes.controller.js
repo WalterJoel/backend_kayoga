@@ -57,13 +57,9 @@ export const getLotesByEstado = async(req,res) =>{
                                         lotes.garibaldi,lotes.contrafuerte,
                                         seriados.talla1 as talla1Seriado,
                                         seriados.talla2 as talla2Seriado,
-                                        seriados.talla21 as talla21Seriado,
                                         seriados.talla3 as talla3Seriado,
-                                        seriados.talla31 as talla31Seriado,
                                         seriados.talla4 as talla4Seriado,
-                                        seriados.talla41 as talla41Seriado,
                                         seriados.talla5 as talla5Seriado,
-                                        seriados.talla51 as talla51Seriado,
 
                                         seriado_restante.talla1 as talla1SeriadoRes,
                                         seriado_restante.talla2 as talla2SeriadoRes,
