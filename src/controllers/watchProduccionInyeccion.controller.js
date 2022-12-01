@@ -72,6 +72,8 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 let idseriadorestante = pares.idseriadorestante;
                 let idinserto         = pares.idinserto;
                 let name_talla        = pares.talla_insert;
+                //Acorto la talla21 a talla2, porque los insertos son tallas fijas 26 28. etc
+                name_talla            = name_talla.substr(0,6);
                 let cantidad          = pares.cantidad;
                 let idmodelo          = pares.idmodelo;
                 // Primero intento actualizar los cortes
