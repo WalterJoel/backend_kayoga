@@ -52,7 +52,7 @@ export const saveOrdenInyeccion = async (req, res) => {
 export const saveOrdenInyeccionMaquinista= async (req, res) => {
         try {
             const orden_inyeccion_json =req.body;
-            console.log(orden_inyeccion_json);
+            //console.log(orden_inyeccion_json);
              //Total pares que cuenta el maquinista
              let pares_inyectados = 0;
              let idwatch_produccion_inyeccion = 0;
@@ -68,12 +68,13 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 pares_inyectados = ${pares_inyectados}
                 WHERE watch_produccion_inyeccion.idwatch_produccion_inyeccion=${idwatch_produccion_inyeccion}` );
             // Actualizo los cortes y los insertos uno por uno
+            console.log(rows)
             orden_inyeccion_json.map(async(pares)=>{
                 let idseriadorestante = pares.idseriadorestante;
                 let idinserto         = pares.idinserto;
                 let name_talla        = pares.talla_insert;
                 //Acorto la talla21 a talla2, porque los insertos son tallas fijas 26 28. etc
-                name_talla            = name_talla.substr(0,6);
+                let name_talla_for_inserto = name_talla.substr(0,6);
                 let cantidad          = pares.cantidad;
                 let idmodelo          = pares.idmodelo;
                 // Primero intento actualizar los cortes
@@ -84,7 +85,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         // Segundo intento actualizar los insertos
                         try {
                                 const [insertos]= await pool.query(`UPDATE insertos
-                                SET ${name_talla}= (ifnull(${name_talla},0)-${cantidad}) 
+                                SET ${name_talla_for_inserto}= (ifnull(${name_talla},0)-${cantidad}) 
                                 WHERE insertos.idinserto=${idinserto}`);
                                 // Tercero, intento actualizar el stock de zapatillas
                                 try {
@@ -95,7 +96,6 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
                                 }
-                                
                         } catch (error) {
                                 return res.status(500).json({
                                 message:'Error al actualizar los insertos', error})                    

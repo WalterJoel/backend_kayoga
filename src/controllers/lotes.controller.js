@@ -6,7 +6,20 @@ export const getLotesCortado = async (req, res) => {
         const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado = 'Cortado'`);
         res.json(rows);
         //res.send('Post Success');  
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo anda mal'
+        })
         
+    }
+};
+
+//Puedo editar cualquier lote, excepto los resueltos
+export const getLotesPorEditar = async (req, res) => {
+    try {
+        const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado != 'Resuelto'`);
+        res.json(rows);
+        //res.send('Post Success');  
     } catch (error) {
         return res.status(500).json({
             message:'Algo anda mal'

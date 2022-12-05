@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import{getLotesCortado,getLotesByEstado,getLotesByEstadoWithoutModels,getLotesPorContar, getLotesPorSeparar} from '../controllers/lotes.controller.js';
-import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado} from '../controllers/lotes.controller.js';
+import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar} from '../controllers/lotes.controller.js';
 import {checkAuth} from '../middlewares/auth.middleware.js'
 //import {checkRoleAuth} from '../middlewares/roleAuth.middleware.js'
 const router = Router();
@@ -16,7 +16,9 @@ const router = Router();
     checkAuth: Verifica que el usuario tenga un token activo y generado por el sistema no por otro
     checkRoleAuth: Verifica el rol del usuario
 */
+
 router.get('/getLotesCortados',getLotesCortado) 
+router.get('/getLotesPorEditar',getLotesPorEditar) 
 router.get('/getLoteById/:id',getLoteById) 
 router.put('/updateLoteById/:id',updateLoteById) 
 router.get('/getLotesByIdAparadorAndEstado/:idAparador/:estadoLotes',getLotesByIdAparadorAndEstado);
