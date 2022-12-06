@@ -78,7 +78,7 @@ export const getLotesByIdAparadorAndEstado = async(req,res) =>{
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
                                         INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
-                                        INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
+                                        LEFT JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
                                         LEFT JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
                                         WHERE lotes.estado = '${estadoLotes.toString()}' 
                                         AND lotes.idaparador=${idAparador}`);
