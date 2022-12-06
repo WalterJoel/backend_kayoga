@@ -226,7 +226,18 @@ export const getLotesPorContar = async (req, res) => {
         const watch_produccion_aparado_estado = 'Por Contar';
 //        INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo                                        
 
-        const [rows]= await pool.query(`SELECT lotes.idlote,watch_produccion_aparado.total_pares_segun_aparador as conteoAparador ,lotes.idseriadorestante,seriados.talla1,lotes.serie as serieLote,
+        const [rows]= await pool.query(`SELECT 
+                                        lotes.idlote,
+                                        watch_produccion_aparado.total_pares_segun_aparador as conteoAparador ,
+                                        lotes.idseriadorestante,
+                                        
+                                        seriados.talla1 as talla1Seriado,
+                                        seriados.talla2 as talla2Seriado,
+                                        seriados.talla3 as talla3Seriado,
+                                        seriados.talla4 as talla4Seriado,
+                                        seriados.talla5 as talla5Seriado,
+
+                                        lotes.serie as serieLote,
                                         CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
                                         ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo
                                         FROM lotes
