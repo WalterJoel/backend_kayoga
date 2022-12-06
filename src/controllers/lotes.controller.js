@@ -34,7 +34,8 @@ export const getLotesByIdAparadorAndEstado = async(req,res) =>{
         //console.log('ss',idAparador,estadoLotes);
         //Hay que tener cuidado en los inner join por el tema de los ids
         const [rows]= await pool.query(`SELECT 
-        lotes.metraje,lotes.idaparador, 
+                                        lotes.metraje,
+                                        lotes.idaparador, 
                                         lotes.fecha_creacion as fechaCorte, 
                                         lotes.color as color_lona,
                                         lotes.fecha_creacion,
@@ -77,6 +78,8 @@ export const getLotesByIdAparadorAndEstado = async(req,res) =>{
                                         INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
                                         INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
                                         INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
+                                        INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
+                                        LEFT JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
                                         WHERE lotes.estado = '${estadoLotes.toString()}' 
                                         AND lotes.idaparador=${idAparador}`);
 
