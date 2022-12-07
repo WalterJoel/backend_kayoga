@@ -269,28 +269,26 @@ export const getLotesPorSeparar = async (req, res) => {
 //        INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo                                        
 
         const [rows]= await pool.query(`SELECT lotes.idlote,
-                    watch_produccion_aparado.total_pares_segun_aparador ,
-                    watch_produccion_aparado.total_pares_segun_contador ,
-                    seriado_restante.talla1,
-                    seriado_restante.talla2,
-                    seriado_restante.talla21,
-                    seriado_restante.talla3,
-                    seriado_restante.talla31,
-                    seriado_restante.talla4,
-                    seriado_restante.talla41,
-                    seriado_restante.talla5,
-                    seriado_restante.talla51,
+                    watch_produccion_aparado.total_pares_segun_aparador,
+                    watch_produccion_aparado.total_pares_segun_contador,
+
+                    seriado_restante.talla1 as talla1SeriadoRes,
+                    seriado_restante.talla2 as talla2SeriadoRes,
+                    seriado_restante.talla3 as talla3SeriadoRes,
+                    seriado_restante.talla4 as talla4SeriadoRes,
+                    seriado_restante.talla5 as talla5SeriadoRes,
+
                     lotes.idseriadorestante,seriados.talla1,lotes.serie as serieLote,
-                                        CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
-                                        ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo
-                                        FROM lotes
-                                        INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
-                                        INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
-                                        INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
-                                        INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
-                                        INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
-                                        WHERE watch_produccion_aparado.estado = '${watch_produccion_aparado_estado}'
-                                        AND seriado_restante.estado_seriado = '${seriado_restante_estado}'` );
+                    CONCAT(modelos.nombre_modelo,' ',modelos.serie_modelo,' ',modelos.pasador_mocasin,
+                    ' ',modelos.tipo_modelo,' ',color_modelos.color_modelo) AS infomodelo
+                    FROM lotes
+                    INNER JOIN seriados ON lotes.idseriado = seriados.idseriado
+                    INNER JOIN modelos ON lotes.idmodelo = modelos.idmodelo
+                    INNER JOIN color_modelos ON modelos.idcolormodelo = color_modelos.idcolormodelo
+                    INNER JOIN watch_produccion_aparado ON lotes.idlote = watch_produccion_aparado.idlote
+                    INNER JOIN seriado_restante ON lotes.idseriadorestante = seriado_restante.idseriadorestante
+                    WHERE watch_produccion_aparado.estado = '${watch_produccion_aparado_estado}'
+                    AND seriado_restante.estado_seriado = '${seriado_restante_estado}'` );
         res.json(rows);        
     } catch (error) {
         return res.status(500).json({
