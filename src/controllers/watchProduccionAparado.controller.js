@@ -13,7 +13,6 @@ export const updateWatchAparado = async (req, res) => {
             let {talla1}=req.body;
             const {talla2,talla3,talla4,talla5,
                 estado_tabla_watch_aparado,idseriadorestante,idlote,descripcion_contador}=req.body;
-            console.log('inicio',req.body)
             if(talla1===''){
                 talla1=0
             }
@@ -25,7 +24,6 @@ export const updateWatchAparado = async (req, res) => {
                        seriado_restante SET  talla1=${talla1}, talla2=${talla2},talla3=${talla3},talla4=${talla4},talla5=${talla5}
                         WHERE seriado_restante.idseriadorestante=${idseriadorestante}`);
             try {   
-                console.log('entro al ultimo ')
                 const [rows]= await pool.query(`UPDATE watch_produccion_aparado
                                         SET estado='${estado_tabla_watch_aparado.toString()}',
                                             fecha_conteo='${fecha_conteo.toString()}',

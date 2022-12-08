@@ -1,6 +1,10 @@
 import { request } from 'express';
 import {pool} from '../db.js'
 
+
+/* Esta funcion la utilizo unicamente para enviar lotes al estampado
+ los lotes que van al estampado solo pueden ser aquellos que tienen como estado Cortado*/ 
+ 
 export const getLotesCortado = async (req, res) => {
     try {
         const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado = 'Cortado'`);
@@ -13,7 +17,20 @@ export const getLotesCortado = async (req, res) => {
         
     }
 };
-
+/* Esta funcion se utiliza cuando se quiere enviar un lote al aparado, este puede 
+tener un estado Cortado o Aparado*/
+export const getLotesCortadoyEstampado = async (req, res) => {
+    try {
+        const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado = 'Cortado' or lotes.estado = 'Estampado' `);
+        res.json(rows);
+        //res.send('Post Success');  
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo anda mal'
+        })
+        
+    }
+};
 //Puedo editar cualquier lote, excepto los resueltos o anulados
 export const getLotesPorEditar = async (req, res) => {
     try {
