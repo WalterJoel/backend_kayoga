@@ -181,6 +181,26 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
         
     }
 };
+/* Funcion que da de baja a un lote en especifico colocandole estado = Anulado */
+
+export const darBajaLoteById = async (req, res) => {
+    try {
+        console.log('listos')
+        const idLote=req.params.id;
+        const {estado}=req.body;
+        console.log(req.body);
+        const [rows]= await pool.query(`UPDATE lotes
+                                        SET 
+                                        estado='${estado}'
+                                        WHERE lotes.idlote=${idLote}` );
+        res.json(rows);                                        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:'Algo anda mal al Actualizar el lote'+error
+        })
+    }
+};
 /*  Esta funcion la utilizo en editarLotePage
     - Puedo editar cualquier lote, excepto los resueltos o anulados
     - Editamos el seriado de corte solo si el lote esta en estado cortado
@@ -189,28 +209,38 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
 export const updateSpecificInfoLoteById = async (req, res) => {
     try {
         const idLote=req.params.id;
-        const {metraje, color, descripcion, detalle_insumos_aparado,
+        const {metraje, idseriado,color, descripcion, detalle_insumos_aparado,
               garibaldi,contrafuerte,talla1,talla2,talla3,talla4,talla5}=req.body;
-        
+        console.log(req.body);
         const [rows]= await pool.query(`UPDATE lotes
                                         SET 
                                         metraje=${metraje}, 
-                                        color=${color},
+                                        color='${color}',
                                         detalle_insumos_aparado= ifnull('${detalle_insumos_aparado.toString()}','.'), 
                                         descripcion='${descripcion.toString()}',
                                         garibaldi='${garibaldi}',
-                                        contrafuerte='${contrafuerte}',
+                                        contrafuerte='${contrafuerte}'
+                                        WHERE lotes.idlote=${idLote}` );
+        try {
+            const [rows]= await pool.query(`UPDATE seriados
+                                        SET 
                                         talla1=${talla1},
                                         talla2=${talla2},
                                         talla3=${talla3},
                                         talla4=${talla4},
                                         talla5=${talla5}
-                                        WHERE lotes.idlote=${idLote} ` );
-        res.json(rows);
-        
+                                        WHERE seriados.idseriado=${idseriado} ` );
+            res.json(rows);                                        
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                message:'Algo anda mal al Actualizar el lote'+error
+            })    
+        }        
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
-            message:'Algo anda mal al Actualizar el lote'
+            message:'Algo anda mal al Actualizar el lote'+error
         })
     }
 };
