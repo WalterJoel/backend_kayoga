@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import{getLotesCortado,getLotesByEstado,getLotesByEstadoWithoutModels,getLotesPorContar, getLotesPorSeparar} from '../controllers/lotes.controller.js';
-import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar   } from '../controllers/lotes.controller.js';
+import{getLoteById,updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar,updateSpecificInfoLoteById   } from '../controllers/lotes.controller.js';
 import {checkAuth} from '../middlewares/auth.middleware.js'
 //import {checkRoleAuth} from '../middlewares/roleAuth.middleware.js'
 const router = Router();
@@ -20,6 +20,7 @@ const router = Router();
 router.get('/getLotesCortados',getLotesCortado) 
 router.get('/getLotesPorEditar',getLotesPorEditar) 
 router.get('/getLoteById/:id',getLoteById) 
+router.put('/updateSpecificInfoLoteById/:id',updateSpecificInfoLoteById) 
 router.put('/updateLoteById/:id',updateLoteById) 
 router.get('/getLotesByIdAparadorAndEstado/:idAparador/:estadoLotes',getLotesByIdAparadorAndEstado);
 router.get('/getLotesByEstado/:estadoLotes',getLotesByEstado);

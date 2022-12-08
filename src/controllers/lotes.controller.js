@@ -14,10 +14,11 @@ export const getLotesCortado = async (req, res) => {
     }
 };
 
-//Puedo editar cualquier lote, excepto los resueltos
+//Puedo editar cualquier lote, excepto los resueltos o anulados
 export const getLotesPorEditar = async (req, res) => {
     try {
-        const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado != 'Resuelto'`);
+        const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado != 'Resuelto' 
+                                                            AND lotes.estado != 'Anulado' `);
         res.json(rows);
         //res.send('Post Success');  
     } catch (error) {
@@ -180,7 +181,40 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
         
     }
 };
-
+/*  Esta funcion la utilizo en editarLotePage
+    - Puedo editar cualquier lote, excepto los resueltos o anulados
+    - Editamos el seriado de corte solo si el lote esta en estado cortado
+    - 
+*/ 
+export const updateSpecificInfoLoteById = async (req, res) => {
+    try {
+        const idLote=req.params.id;
+        const {metraje, color, descripcion, detalle_insumos_aparado,
+              garibaldi,contrafuerte,talla1,talla2,talla3,talla4,talla5}=req.body;
+        
+        const [rows]= await pool.query(`UPDATE lotes
+                                        SET 
+                                        metraje=${metraje}, 
+                                        color=${color},
+                                        detalle_insumos_aparado= ifnull('${detalle_insumos_aparado.toString()}','.'), 
+                                        descripcion='${descripcion.toString()}',
+                                        garibaldi='${garibaldi}',
+                                        contrafuerte='${contrafuerte}',
+                                        talla1=${talla1},
+                                        talla2=${talla2},
+                                        talla3=${talla3},
+                                        talla4=${talla4},
+                                        talla5=${talla5}
+                                        WHERE lotes.idlote=${idLote} ` );
+        res.json(rows);
+        
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo anda mal al Actualizar el lote'
+        })
+    }
+};
+//Este update lo es utilizado en DetailPageLote.js en el front cuando un lote se envia al aparador
 export const updateLoteById = async (req, res) => {
     try {
         const idLote=req.params.id;
