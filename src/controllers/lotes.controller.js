@@ -266,7 +266,6 @@ export const enviarLoteEstampadoById = async (req, res) => {
     try {
         const idLote=req.params.id;
         const {estado}=req.body;
-        console.log(estado);
         const [rows]= await pool.query(`UPDATE lotes
                                         SET 
                                         estado='${estado}'

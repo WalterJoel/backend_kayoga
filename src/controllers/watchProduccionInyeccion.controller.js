@@ -68,7 +68,6 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 pares_inyectados = ${pares_inyectados}
                 WHERE watch_produccion_inyeccion.idwatch_produccion_inyeccion=${idwatch_produccion_inyeccion}` );
             // Actualizo los cortes y los insertos uno por uno
-            console.log(rows)
             orden_inyeccion_json.map(async(pares)=>{
                 let idseriadorestante = pares.idseriadorestante;
                 let idinserto         = pares.idinserto;
@@ -92,6 +91,8 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                                         const [zapatillas]= await pool.query(`UPDATE zapatillas
                                         SET ${name_talla}= (ifnull( ${name_talla}, 0 )+ ${cantidad}) 
                                         WHERE zapatillas.idmodelo=${idmodelo}`);
+                                        //Retorno todo
+                                        res.json(zapatillas);
                                 } catch (error) {
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
@@ -106,7 +107,6 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         
                 }
              })
-             res.send('ok')
         } catch (error) {
               return res.status(500).json({
                 message:'Algo anda mal al insertar en la tabla watch y seriado restante', error})    
