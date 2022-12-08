@@ -4,7 +4,7 @@ import {pool} from '../db.js'
 
 /* Esta funcion la utilizo unicamente para enviar lotes al estampado
  los lotes que van al estampado solo pueden ser aquellos que tienen como estado Cortado*/ 
- 
+
 export const getLotesCortado = async (req, res) => {
     try {
         const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado = 'Cortado'`);
@@ -258,6 +258,23 @@ export const updateSpecificInfoLoteById = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             message:'Algo anda mal al Actualizar el lote'+error
+        })
+    }
+};
+//Este update lo es utilizado en DetailPageLote.js en el front cuando un lote se envia al aparador
+export const enviarLoteEstampadoById = async (req, res) => {
+    try {
+        const idLote=req.params.id;
+        const {estado}=req.body;
+        console.log(estado);
+        const [rows]= await pool.query(`UPDATE lotes
+                                        SET 
+                                        estado='${estado}'
+                                        WHERE lotes.idlote=${idLote} ` );
+        res.json(rows);
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo anda mal al enviar lote al estampado'
         })
     }
 };

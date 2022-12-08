@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import{getLotesCortado,getLotesByEstado,getLotesByEstadoWithoutModels,getLotesPorContar, getLotesPorSeparar} from '../controllers/lotes.controller.js';
-import{getLoteById,getLotesCortadoyEstampado, updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar,updateSpecificInfoLoteById,darBajaLoteById   } from '../controllers/lotes.controller.js';
+import{getLoteById,enviarLoteEstampadoById,getLotesCortadoyEstampado, updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar,updateSpecificInfoLoteById,darBajaLoteById   } from '../controllers/lotes.controller.js';
 import {checkAuth} from '../middlewares/auth.middleware.js'
 //import {checkRoleAuth} from '../middlewares/roleAuth.middleware.js'
 const router = Router();
@@ -21,7 +21,8 @@ router.get('/getLotesCortados',getLotesCortado)
 router.get('/getLotesPorEditar',getLotesPorEditar) 
 router.get('/getLoteById/:id',getLoteById) 
 router.get('/getLotesCortadoyEstampado',getLotesCortadoyEstampado) 
-router.put('/darBajaLoteById/:id',darBajaLoteById); 
+router.put('/darBajaLoteById/:id',darBajaLoteById);
+router.put('/enviarLoteEstampadoById/:id',enviarLoteEstampadoById); 
 router.put('/updateSpecificInfoLoteById/:id',updateSpecificInfoLoteById) 
 router.put('/updateLoteById/:id',updateLoteById) 
 router.get('/getLotesByIdAparadorAndEstado/:idAparador/:estadoLotes',getLotesByIdAparadorAndEstado);
