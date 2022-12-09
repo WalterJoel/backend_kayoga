@@ -179,10 +179,24 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
     try {
         const {estadoLotes}=req.params
         //Hay que tener cuidado en los inner join por el tema de los ids
-        const [rows]= await pool.query(`SELECT lotes.metraje,lotes.idaparador, lotes.fecha_creacion as fechaCorte,
-                                        lotes.color as color_lona,lotes.fecha_creacion,lotes.garibaldi,lotes.contrafuerte,
-                                        seriados.talla1,lotes.idlote,lotes.serie as serieLote,
-                                        lotes.descripcion as descripcion_cortador, lotes.estado as estado_lote,
+        const [rows]= await pool.query(`SELECT 
+                                        lotes.metraje,
+                                        lotes.idaparador, 
+                                        lotes.fecha_creacion as fechaCorte,
+                                        lotes.color as color_lona,
+                                        lotes.fecha_creacion,
+                                        lotes.garibaldi,lotes.contrafuerte,
+                                        seriados.talla1,
+                                        lotes.idlote,lotes.serie as serieLote,
+                                        lotes.descripcion as descripcion_cortador, 
+                                        lotes.estado as estado_lote,
+
+                                        seriados.talla1 as talla1Seriado,
+                                        seriados.talla2 as talla2Seriado,
+                                        seriados.talla3 as talla3Seriado,
+                                        seriados.talla4 as talla4Seriado,
+                                        seriados.talla5 as talla5Seriado,
+                                        
                                         CONCAT(seriados.talla1+seriados.talla2+seriados.talla3+seriados.talla4+seriados.talla5)
                                         AS total_pares_seriado_inicial
                                         FROM lotes
