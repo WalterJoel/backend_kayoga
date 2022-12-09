@@ -57,7 +57,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
              let pares_inyectados = 0;
              let idwatch_produccion_inyeccion = 0;
              orden_inyeccion_json.map((pares)=>{
-                pares_inyectados += pares['cantidad'];
+                pares_inyectados += parseInt(pares['cantidad']);
                 idwatch_produccion_inyeccion = pares.idwatch_produccion_inyeccion;
              })
             let fecha_cierre_orden = new Date();
@@ -92,7 +92,9 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                                         SET ${name_talla}= (ifnull( ${name_talla}, 0 )+ ${cantidad}) 
                                         WHERE zapatillas.idmodelo=${idmodelo}`);
                                         //Retorno todo
-                                        res.json(zapatillas);
+                                        if(zapatillas){
+                                                res.json(zapatillas);
+                                        }
                                 } catch (error) {
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
