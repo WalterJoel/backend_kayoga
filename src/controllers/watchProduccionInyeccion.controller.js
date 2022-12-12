@@ -94,21 +94,17 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                                         WHERE zapatillas.idmodelo=${idmodelo}`);
 
                                 } catch (error) {
-                                        console.log(error, ' Error al insertar zapatillas ')
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
                                 }
                         } catch (error) {
-                                console.log(error, ' Error al actualizar insertos ')
                                 return res.status(500).json({
                                 message:'Error al actualizar los insertos', error})                    
                         }
 
                 } catch (error) {
-                        console.log(error, ' Error al restar cortes')
                         return res.status(500).json({
                         message:'Error al actualizar los cortes', error})    
-                        
                 }
              })
          res.json(rows);
