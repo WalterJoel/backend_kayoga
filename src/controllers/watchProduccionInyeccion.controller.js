@@ -68,6 +68,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 SET estado_orden='CERRADA', fecha_cierre_orden='${fecha_cierre_orden}',
                 pares_inyectados = ${pares_inyectados}
                 WHERE watch_produccion_inyeccion.idwatch_produccion_inyeccion=${idwatch_produccion_inyeccion}` );
+                res.json(rows);
             // Actualizo los cortes y los insertos uno por uno
             orden_inyeccion_json.map(async(pares)=>{
                 let idseriadorestante = pares.idseriadorestante;
@@ -107,7 +108,6 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         message:'Error al actualizar los cortes', error})    
                 }
              })
-         res.send('ok');
         } catch (error) {
                 console.log(error, ' Error al modificar el watch inyeccion')
               return res.status(500).json({
