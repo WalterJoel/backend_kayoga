@@ -25,7 +25,7 @@ export const saveOrdenInyeccion = async (req, res) => {
                 // itero por las cantidades para obtener el total de pares
                 let pares_orden = 0;
                 orden_inyeccion_json.map((pares)=>{
-                        pares_orden += pares['cantidad'];
+                        pares_orden += parseInt(pares['cantidad']);
                 })
 
                 let fecha_creacion = new Date();
@@ -86,8 +86,9 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         idwatch_produccion_inyeccion = pares.idwatch_produccion_inyeccion;
                 })
                 //Si agrego los totales
-                const [agregar_datos_watch]= await getAndUpdateCantidades(idwatch_produccion_inyeccion);
-                if(agregar_datos_watch.length){
+                const agregar_datos_watch = await getAndUpdateCantidades(idwatch_produccion_inyeccion);
+                console.log(agregar_datos_watch, ' datos')
+                if(agregar_datos_watch){
                         let fecha_cierre_orden = new Date();
                         fecha_cierre_orden=fecha_cierre_orden.toLocaleString('PET',{timeZone:'America/Lima'});
                         //Actualizo la tabla watch_produccion_inyeccion 1 sola vez
