@@ -53,6 +53,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
         // Esta variable validara si se han insertado todos los datos al comparar con el len del array                
         try {
             const orden_inyeccion_json =req.body;
+            
             //Total pares que cuenta el maquinista
              let pares_inyectados = 0;
              let idwatch_produccion_inyeccion = 0;
@@ -110,7 +111,6 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         
                 }
              })
-             ///
          res.json(rows);
         } catch (error) {
                 console.log(error, ' Error al modificar el watch inyeccion')
