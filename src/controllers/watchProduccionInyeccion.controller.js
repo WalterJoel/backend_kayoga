@@ -107,7 +107,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         message:'Error al actualizar los cortes', error})    
                 }
              })
-         res.json(rows);
+         res.send('ok');
         } catch (error) {
                 console.log(error, ' Error al modificar el watch inyeccion')
               return res.status(500).json({
