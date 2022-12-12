@@ -216,10 +216,8 @@ export const getLotesByEstadoWithoutModels = async(req,res) =>{
 
 export const darBajaLoteById = async (req, res) => {
     try {
-        console.log('listos')
         const idLote=req.params.id;
         const {estado}=req.body;
-        console.log(req.body);
         const [rows]= await pool.query(`UPDATE lotes
                                         SET 
                                         estado='${estado}'
@@ -242,7 +240,6 @@ export const updateSpecificInfoLoteById = async (req, res) => {
         const idLote=req.params.id;
         const {metraje, idseriado,color, descripcion, detalle_insumos_aparado,
               garibaldi,contrafuerte,talla1,talla2,talla3,talla4,talla5}=req.body;
-        console.log(req.body);
         const [rows]= await pool.query(`UPDATE lotes
                                         SET 
                                         metraje=${metraje}, 

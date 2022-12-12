@@ -22,7 +22,6 @@ export const saveOrdenInyeccion = async (req, res) => {
             //orden_inyeccion_json es todo el json devuelto por eso no uso { }
             const orden_inyeccion_json =req.body;
              // itero por las cantidades para obtener el total de pares
-             console.log('ssss ',orden_inyeccion_json);
              let pares_orden = 0;
              orden_inyeccion_json.map((pares)=>{
                 pares_orden += pares['cantidad'];
@@ -50,10 +49,11 @@ export const saveOrdenInyeccion = async (req, res) => {
 2.- Actualizamos la tabla watch_produccion_inyeccion agregando fecha_cierre_orden y pares_inyectados
 */
 export const saveOrdenInyeccionMaquinista= async (req, res) => {
+        
+        // Esta variable validara si se han insertado todos los datos al comparar con el len del array                
         try {
             const orden_inyeccion_json =req.body;
-            //console.log(orden_inyeccion_json);
-             //Total pares que cuenta el maquinista
+            //Total pares que cuenta el maquinista
              let pares_inyectados = 0;
              let idwatch_produccion_inyeccion = 0;
              orden_inyeccion_json.map((pares)=>{
@@ -72,7 +72,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 let idseriadorestante = pares.idseriadorestante;
                 let idinserto         = pares.idinserto;
                 let name_talla        = pares.talla_insert;
-                //Acorto la talla21 a talla2, porque los insertos son tallas fijas 26 28. etc
+        //Acorto la talla21 a talla2, porque los insertos son tallas fijas 26 28. etc
                 let name_talla_for_inserto = name_talla.substr(0,6);
                 let cantidad          = pares.cantidad;
                 let idmodelo          = pares.idmodelo;
@@ -91,25 +91,28 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                                         const [zapatillas]= await pool.query(`UPDATE zapatillas
                                         SET ${name_talla}= (ifnull( ${name_talla}, 0 )+ ${cantidad}) 
                                         WHERE zapatillas.idmodelo=${idmodelo}`);
-                                        //Retorno todo
-                                        if(zapatillas){
-                                                res.json(zapatillas);
-                                        }
+
                                 } catch (error) {
+                                        console.log(error, ' Error al insertar zapatillas ')
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
                                 }
                         } catch (error) {
+                                console.log(error, ' Error al actualizar insertos ')
                                 return res.status(500).json({
                                 message:'Error al actualizar los insertos', error})                    
                         }
+
                 } catch (error) {
+                        console.log(error, ' Error al restar cortes')
                         return res.status(500).json({
                         message:'Error al actualizar los cortes', error})    
                         
                 }
              })
+         res.json(rows);
         } catch (error) {
+                console.log(error, ' Error al modificar el watch inyeccion')
               return res.status(500).json({
                 message:'Algo anda mal al insertar en la tabla watch y seriado restante', error})    
         }
