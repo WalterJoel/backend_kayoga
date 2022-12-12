@@ -69,7 +69,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                 pares_inyectados = ${pares_inyectados}
                 WHERE watch_produccion_inyeccion.idwatch_produccion_inyeccion=${idwatch_produccion_inyeccion}` );
             // Actualizo los cortes y los insertos uno por uno
-            orden_inyeccion_json.map(async(pares)=>{
+            orden_inyeccion_json.map(async(pares,i,arr)=>{
                 let idseriadorestante = pares.idseriadorestante;
                 let idinserto         = pares.idinserto;
                 let name_talla        = pares.talla_insert;
@@ -85,25 +85,29 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
                         // Segundo intento actualizar los insertos
                         try {
                                 const [insertos]= await pool.query(`UPDATE insertos
-                                SET ${name_talla_for_inserto}= (ifnull(${name_talla},0)-${cantidad}) 
+                                SET ${name_talla_for_inserto}= (ifnull(${name_talla_for_inserto},0)-${cantidad}) 
                                 WHERE insertos.idinserto=${idinserto}`);
                                 // Tercero, intento actualizar el stock de zapatillas
                                 try {
                                         const [zapatillas]= await pool.query(`UPDATE zapatillas
                                         SET ${name_talla}= (ifnull( ${name_talla}, 0 )+ ${cantidad}) 
                                         WHERE zapatillas.idmodelo=${idmodelo}`);
-                                        res.json(rows);
-
+                                        if(arr.length-1 === i){
+                                                res.json(zapatillas);
+                                        }
                                 } catch (error) {
+                                        console.log('eroor ',error)
                                         return res.status(500).json({
                                         message:'Error al actualizar el stock de zapatillas', error})                    
                                 }
                         } catch (error) {
+                                console.log('eroor ',error)
                                 return res.status(500).json({
                                 message:'Error al actualizar los insertos', error})                    
                         }
 
                 } catch (error) {
+                        console.log('eroor ',error)
                         return res.status(500).json({
                         message:'Error al actualizar los cortes', error})    
                 }
