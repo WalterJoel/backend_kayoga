@@ -119,6 +119,7 @@ export const saveOrdenInyeccionMaquinista= async (req, res) => {
         }
 };
 
+
 /* Funcion que verifica si hay ordenes de inyeccion abiertas */ 
 export const verificarOrdenInyeccionAbierta = async (req, res) => {
         try {
