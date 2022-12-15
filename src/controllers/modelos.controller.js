@@ -72,21 +72,22 @@ export const getZapatillasBySerie=async(req,res)=>{
 export const updateAllZapatillas = (req, res) => {
     try {
         const allZapatillas = req.body;
-        console.log('body',req.body);
         let rows = [];
         allZapatillas.map(async(row,i,arr)=>{
             rows= await pool.query(`UPDATE zapatillas
                                     SET 
                                     talla1  = ${row.talla1},
-                                    talla 2 = ${row.talla2},
+                                    talla2 = ${row.talla2},
                                     talla21 = ${row.talla21},
                                     talla3  = ${row.talla3},
                                     talla31 = ${row.talla31},
-                                    talla4  = ${row.talla4},talla41=${row.talla41},
-                                    talla5  = ${row.talla5},talla51=${row.talla51}
+                                    talla4  = ${row.talla4},
+                                    talla41 = ${row.talla41},
+                                    talla5  = ${row.talla5}, 
+                                    talla51 = ${row.talla51}
                                     WHERE zapatillas.idzapatilla =${row.idzapatilla}`);
             if(arr.length-1 === i){
-                
+
                 res.json(rows);
             }
         })
