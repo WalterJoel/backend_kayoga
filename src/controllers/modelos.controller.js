@@ -75,11 +75,14 @@ export const updateAllZapatillas = (req, res) => {
         let rows = [];
         allZapatillas.map(async(row,i)=>{
             rows= await pool.query(`UPDATE zapatillas
-                                    SET talla1= ifnull(talla1,0) + ${row.talla1},talla2=ifnull(talla2,0) +${row.talla2},
-                                    talla21= ifnull(talla21,0)+${row.talla21},talla3=ifnull(talla3,0)+ ${row.talla3},
-                                    talla31=ifnull(talla31,0)+${row.talla31},
-                                    talla4=ifnull(talla4,0) + ${row.talla4},talla41=ifnull(talla41,0)+${row.talla41},
-                                    talla5=ifnull(talla5,0)+${row.talla5},talla51=ifnull(talla51,0)+${row.talla51}
+                                    SET 
+                                    talla1  = ${row.talla1},
+                                    talla 2 = ${row.talla2},
+                                    talla21 = ${row.talla21},
+                                    talla3  = ${row.talla3},
+                                    talla31 = ${row.talla31},
+                                    talla4  = ${row.talla4},talla41=${row.talla41},
+                                    talla5  = ${row.talla5},talla51=${row.talla51}
                                     WHERE zapatillas.idzapatilla =${row.idzapatilla}`);
         })
         /*const [rows]= await pool.query(`SELECT serie_inserto,CONCAT(modelo_inserto,' ',serie_inserto,' ',color_inserto) AS  info_inserto,
