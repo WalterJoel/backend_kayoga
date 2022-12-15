@@ -86,6 +86,7 @@ export const updateAllZapatillas = (req, res) => {
                                     talla5  = ${row.talla5},talla51=${row.talla51}
                                     WHERE zapatillas.idzapatilla =${row.idzapatilla}`);
             if(arr.length-1 === i){
+                
                 res.json(rows);
             }
         })
