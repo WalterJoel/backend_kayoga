@@ -74,7 +74,7 @@ export const updateAllZapatillas = (req, res) => {
         const allZapatillas = req.body;
         console.log('body',req.body);
         let rows = [];
-        allZapatillas.map(async(row,i)=>{
+        allZapatillas.map(async(row,i,arr)=>{
             rows= await pool.query(`UPDATE zapatillas
                                     SET 
                                     talla1  = ${row.talla1},
@@ -85,12 +85,14 @@ export const updateAllZapatillas = (req, res) => {
                                     talla4  = ${row.talla4},talla41=${row.talla41},
                                     talla5  = ${row.talla5},talla51=${row.talla51}
                                     WHERE zapatillas.idzapatilla =${row.idzapatilla}`);
+            if(arr.length-1 === i){
+                res.json(rows);
+            }
         })
         /*const [rows]= await pool.query(`SELECT serie_inserto,CONCAT(modelo_inserto,' ',serie_inserto,' ',color_inserto) AS  info_inserto,
                                         talla1,talla2,talla3,talla4,talla5,idinserto
                                         FROM insertos 
                                         WHERE insertos.serie_inserto ='${serieInserto}'`);*/
-        res.json(rows);
         
     } catch (error) {
         return res.status(500).json({
