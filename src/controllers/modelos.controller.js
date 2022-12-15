@@ -95,6 +95,7 @@ export const updateAllZapatillas = (req, res) => {
                                         WHERE insertos.serie_inserto ='${serieInserto}'`);*/
         
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message:'Algo anda mal'
         })
