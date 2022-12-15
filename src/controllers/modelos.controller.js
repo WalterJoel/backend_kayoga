@@ -67,6 +67,7 @@ export const getZapatillasBySerie=async(req,res)=>{
     }
 }
 
+
 /* Esta funcion actualiza el stock de zapatillas haciendo un map por todo el array de JSON */
 export const updateAllZapatillas = (req, res) => {
     try {
