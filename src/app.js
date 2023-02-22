@@ -14,10 +14,10 @@ import authRoutes from './routes/auth.routes.js';
 import insertosRoutes from './routes/insertos.routes.js';
 import watchProduccionInyectadoRoutes from './routes/watchProduccionInyeccion.routes.js'
 const app = express();
+app.use(cors());
 
 // Para poder recibir json desde el body de la peticion
 app.use(express.json());
-app.use(cors());
 
 // ************ MUY IMPORTANTE DEFINIRLO ANTES DE LLAMAR A LAS RUTAS
 // Add headers before the routes are defined
@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-app.set('Access-Control-Allow-Origin', '*');
+//app.set('Access-Control-Allow-Origin', '*');
 
 
 app.use(lotesRoutes);
