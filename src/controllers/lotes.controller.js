@@ -36,11 +36,11 @@ export const getLotesPorEditar = async (req, res) => {
     try {
         const [rows]= await pool.query(`SELECT * FROM lotes WHERE lotes.estado != 'Resuelto' 
                                                             AND lotes.estado != 'Anulado' `);
-        res.json(rows);
+        return res.json(rows);
         //res.send('Post Success');  
     } catch (error) {
         return res.status(500).json({
-            message:'Algo anda mal'
+            message:error
         })
         
     }
