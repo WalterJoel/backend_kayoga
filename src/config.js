@@ -9,7 +9,7 @@ console.log(process.env.PORT);
 export const PORT      = process.env.PORT ||  '4000';
 export const DB_PORT      = process.env.DB_PORT || '7621';
 export const DB_USER      = process.env.DB_USER || 'root';
-export const DB_PASSWORD  = process.env.DB_PASSWORD || 'G56ql30tZnwcIVRW8OjI';
+export const DB_PASSWORD  = process.env.DB_PASSWORD || 'MgN4YY5YFtmFYy79bHCm';
 export const DB_HOST      = process.env.DB_HOST || 'containers-us-west-21.railway.app';
 export const DB_DATABASE  = process.env.DB_DATABASE || 'railway';
 
