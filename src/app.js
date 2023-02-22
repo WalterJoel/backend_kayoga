@@ -1,5 +1,6 @@
 //Se crea este archivo para no tener todo en index.js
 import express from 'express';
+import cors from 'cors'
 
 
 //Uso cualquier nombre porque exportan by default
