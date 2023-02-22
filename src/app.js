@@ -17,6 +17,8 @@ const app = express();
 
 // Para poder recibir json desde el body de la peticion
 app.use(express.json());
+app.use(cors());
+
 // ************ MUY IMPORTANTE DEFINIRLO ANTES DE LLAMAR A LAS RUTAS
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
