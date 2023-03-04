@@ -34,7 +34,7 @@ export const signIn = async (req, res) => {
     if (user.length === 0) {
         return res.status(401).send('El usuario no existe');
     }
-    const token        = jwt.sign({_id: user.idusuario}, 'secretkey',{expiresIn:'100'});
+    const token        = jwt.sign({_id: user.idusuario}, 'secretkey',{expiresIn:'1h'});
     const onlyDataUser = user[0]; 
     return res.status(200).json({token,onlyDataUser});
 };

@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors'
 import passport from 'passport';
-
+import compression from 'compression';
 
 //Uso cualquier nombre porque exportan by default
 import lotesRoutes from './routes/lotes.routes.js';
@@ -22,6 +22,7 @@ import { JwtStrategy } from './config/passport.js';
 
 const app = express();
 app.use(cors());
+app.use(compression);
 
 // Para poder recibir json desde el body de la peticion
 app.use(express.json());
