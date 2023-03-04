@@ -22,7 +22,7 @@ import { JwtStrategy } from './config/passport.js';
 
 const app = express();
 app.use(cors());
-app.use(compression);
+//app.use(compression);
 
 // Para poder recibir json desde el body de la peticion
 app.use(express.json());
