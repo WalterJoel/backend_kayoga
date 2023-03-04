@@ -1,6 +1,7 @@
 //Se crea este archivo para no tener todo en index.js
 import express from 'express';
 import cors from 'cors'
+import passport from 'passport';
 
 
 //Uso cualquier nombre porque exportan by default
@@ -14,6 +15,11 @@ import watchProduccionAparadoRoutes from './routes/watchProduccionAparado.routes
 import authRoutes from './routes/auth.routes.js';
 import insertosRoutes from './routes/insertos.routes.js';
 import watchProduccionInyectadoRoutes from './routes/watchProduccionInyeccion.routes.js'
+
+
+/* Inicializociones para login */
+import { JwtStrategy } from './config/passport.js';
+
 const app = express();
 app.use(cors());
 
@@ -38,6 +44,9 @@ app.use(function (req, res, next) {
 });
 //app.set('Access-Control-Allow-Origin', '*');
 
+
+/* Inicializando la libreria passport para autenticacion */
+passport.use(JwtStrategy);
 
 app.use(lotesRoutes);
 app.use(indexRoutes);

@@ -1,4 +1,3 @@
-import { request } from 'express';
 import {pool} from '../db.js'
 
 

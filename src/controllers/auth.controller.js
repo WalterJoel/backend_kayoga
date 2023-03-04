@@ -1,31 +1,6 @@
-import { request } from 'express';
 import {pool} from '../db.js'
-import {tokenSign} from '../helpers/generateToken.helper.js'
+import jwt from 'jsonwebtoken';
 
-export const login = async (req, res) => {
-    try {
-        const {email,contrasena}=req.body;
-        console.log('email',email,contrasena)
-        const [user]= await pool.query(`SELECT * FROM usuarios WHERE usuarios.email = '${email.toString()}' 
-                                        AND usuarios.contrasena = '${contrasena.toString()}' `);
-        
-        //console.log(user)
-        if(user){
-            console.log(user)
-            res.json({user});
-            const tokenSession= await tokenSign(user[0]);
-            console.log(tokenSession);
-        }
-        else{
-            res.send({error:'Usuario no encontrado'});            
-        }
-        
-    } catch (error) {
-        return res.status(500).json({
-        })
-        
-    }
-};
 
 export const logout =(req, res) => {
     try {
@@ -48,4 +23,18 @@ export const logout =(req, res) => {
         return res.status(500).json({
         })
     }
+};
+
+export const signIn = async (req, res) => {
+    const { email, password } = req.body;
+    //Valido usuario y contrasenia
+    const [user]= await pool.query(`SELECT * FROM usuarios WHERE usuarios.email = '${email.toString()}' 
+                                    AND usuarios.contrasena = '${password.toString()}' `);
+
+    if (user.length === 0) {
+        return res.status(401).send('El usuario no existe');
+    }
+    const token        = jwt.sign({_id: user.idusuario}, 'secretkey',{expiresIn:'5h'});
+    const onlyDataUser = user[0]; 
+    return res.status(200).json({token,onlyDataUser});
 };

@@ -1,8 +1,10 @@
 import { Router } from "express";
+import passport from 'passport';
+//import {isUserAuthenticated } from '../config/passport.js';
+
 
 import{getLotesCortado,getLotesByEstado,getLotesByEstadoWithoutModels,getLotesPorContar, getLotesPorSeparar} from '../controllers/lotes.controller.js';
 import{getLoteById,enviarLoteEstampadoById,getLotesCortadoyEstampado, updateLoteById,getLotesByIdAparadorAndEstado,getLotesPorEditar,updateSpecificInfoLoteById,darBajaLoteById   } from '../controllers/lotes.controller.js';
-import {checkAuth} from '../middlewares/auth.middleware.js'
 //import {checkRoleAuth} from '../middlewares/roleAuth.middleware.js'
 const router = Router();
 
@@ -16,9 +18,10 @@ const router = Router();
     checkAuth: Verifica que el usuario tenga un token activo y generado por el sistema no por otro
     checkRoleAuth: Verifica el rol del usuario
 */
+//router.use(passport.authenticate('jwt', {session: false}));
 
 router.get('/getLotesCortados',getLotesCortado) 
-router.get('/getLotesPorEditar',getLotesPorEditar) 
+router.get('/getLotesPorEditar',passport.authenticate('jwt',{session:false}),getLotesPorEditar) 
 router.get('/getLoteById/:id',getLoteById) 
 router.get('/getLotesCortadoyEstampado',getLotesCortadoyEstampado) 
 router.put('/darBajaLoteById/:id',darBajaLoteById);

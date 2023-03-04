@@ -22,3 +22,6 @@ pool.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
   });*/
+
+
+// Tiene que ir en el folder config
