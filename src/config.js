@@ -1,6 +1,6 @@
 import {config} from 'dotenv'
 //Funcion propia de dotenv, para poder leer variables de entorno
-
+//comentario
 config();
 //process es un objeto global de node, env almacena todas las variables de mi pc    
 console.log(process.env.PORT);
